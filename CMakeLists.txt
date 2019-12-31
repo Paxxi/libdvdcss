@@ -5,7 +5,7 @@ project(dvdcss C)
 
 set(DVDCSS_VERSION_MAJOR 1)
 set(DVDCSS_VERSION_MINOR 4)
-set(DVDCSS_VERSION_MICRO 1)
+set(DVDCSS_VERSION_MICRO 2)
 
 set(LIBDVDCSS_VERSION "${DVDCSS_VERSION_MAJOR}.${DVDCSS_VERSION_MINOR}.${DVDCSS_VERSION_MICRO}")
 
@@ -105,7 +105,7 @@ set(STDC_HEADERS 1)
 set(SUPPORT_ATTRIBUTE_VISIBILITY_DEFAULT 1)
 set(SUPPORT_FLAG_VISIBILITY 1)
 set(VERSION ${LIBDVDCSS_VERSION})
-set(_WIN32_IE "0x0600")
+set(_WIN32_IE "0x0601")
 
 configure_file(${CMAKE_SOURCE_DIR}/config.h.cm ${CMAKE_BINARY_DIR}/config.h)
 configure_file(${CMAKE_SOURCE_DIR}/src/dvdcss/version.h.in ${CMAKE_BINARY_DIR}/version.h @ONLY)
@@ -138,6 +138,15 @@ if(MSVC)
       LIBDVDCSS_EXPORTS 
       _CRT_SECURE_NO_WARNINGS
       PATH_MAX=1024
+  )
+  target_compile_options(${PROJECT_NAME}
+  PRIVATE
+    /sdl-
+  )
+  target_link_options(${PROJECT_NAME}
+    PRIVATE
+      /debug:full
+      /INCREMENTAL:NO
   )
   if(CMAKE_SYSTEM_NAME STREQUAL WindowsStore)
     enable_language(CXX)
